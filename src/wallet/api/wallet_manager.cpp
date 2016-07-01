@@ -101,7 +101,8 @@ std::vector<std::string> WalletManagerImpl::findWallets(const std::string &path)
         bool matched = boost::regex_match(filename, what, wallet_rx);
         if (matched) {
             // if keys file found, checking if there's wallet file itself
-            std::string wallet_file = (itr->path().parent_path() /= what[1]).string();
+            std::string wallet_file = (itr->path().parent_path() /= std::string(what[1])).string();
+            //std::string wallet_file = (itr->path().parent_path() /= "aaa").string();
             if (boost::filesystem::exists(wallet_file)) {
                 LOG_PRINT_L3("Found wallet: " << wallet_file);
                 result.push_back(wallet_file);
